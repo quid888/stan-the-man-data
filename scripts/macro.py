@@ -1,11 +1,15 @@
-"""Rates and inflation: FRED (no key needed for the CSV export) and the SNB data portal.
+"""Rates and inflation: SNB data portal, US Treasury, and FRED when it answers.
 
-data/macro/fred_<series>.csv   date, value
-data/macro/snb_rendoblim.csv   date, series, value   (yields on Swiss Confederation bonds by maturity)
+data/macro/snb_<cube>.csv        date, series, value   Swiss Confederation bond yields by maturity
+                                 (rendoblim: monthly, old method, ends July 2025; rendoblid: current series)
+data/macro/ust_yield_curve.csv   US Treasury par yield curve, daily, % (1 Mo ... 30 Yr)
+data/macro/fred_<series>.csv     date, value (FRED often does not answer GitHub's servers; given 45 seconds)
 """
+import datetime as dt
 import io
 import os
 import sys
+import time
 
 import pandas as pd
 import requests
@@ -22,7 +26,11 @@ FRED = {
     "CHECPIALLMINMEI": "Switzerland consumer price index, monthly (OECD)",
     "IRLTLT01DEM156N": "Germany 10-year government bond yield, monthly, % (OECD)",
 }
-SNB_CUBES = {"rendoblim": "Yields on Swiss Confederation bonds by maturity"}
+SNB_CUBES = {"rendoblim": "Swiss Confederation bond yields, monthly, method until July 2025",
+             "rendoblid": "Swiss Confederation bond yields, current series"}
+UST = ("https://home.treasury.gov/resource-center/data-chart-center/interest-rates/daily-treasury-rates.csv/"
+       "{y}/all?type=daily_treasury_yield_curve&field_tdr_date_value={y}&page&_format=csv")
+FRED_BUDGET_SECONDS = 45
 
 
 def parse_fred(text: str) -> pd.DataFrame:
@@ -46,12 +54,31 @@ def parse_snb(text: str) -> pd.DataFrame:
     return df[["date", "series", "value"]].dropna()
 
 
-def get(url):
+def get(url, timeout=(10, 30), tries=2):
     def go():
-        r = requests.get(url, timeout=(10, 30), headers={"User-Agent": "stan-the-man-data (personal research)"})
+        r = requests.get(url, timeout=timeout, headers={"User-Agent": "stan-the-man-data (personal research)"})
         r.raise_for_status()
         return r.text
-    return retry(go, tries=2, base_sleep=3, what=url)
+    return retry(go, tries=tries, base_sleep=3, what=url)
+
+
+def treasury():
+    """Daily US par yield curve; the first run backfills from 2000, later runs refresh this year and last."""
+    path = DATA / "macro" / "ust_yield_curve.csv"
+    this_year = dt.date.today().year
+    years = range(this_year - 1, this_year + 1) if path.exists() else range(2000, this_year + 1)
+    frames = []
+    for y in years:
+        df = pd.read_csv(io.StringIO(get(UST.format(y=y), timeout=(10, 40))))
+        df["Date"] = pd.to_datetime(df["Date"])
+        frames.append(df.set_index("Date"))
+    new = pd.concat(frames)
+    if path.exists():
+        old = pd.read_csv(path, index_col="Date", parse_dates=True)
+        new = pd.concat([old[~old.index.isin(new.index)], new])
+    new = new.sort_index()
+    write_csv(new, path)
+    return new
 
 
 def main():
@@ -66,9 +93,21 @@ def main():
             log_status("macro", f"snb {cube}", False, 0, e)
             print(cube, "FAILED", e)
 
+    try:
+        ust = treasury()
+        log_status("macro", "us treasury curve", True, len(ust), f"last {ust.index.max().date()}")
+        print("treasury", len(ust), ust.index.max().date())
+    except Exception as e:  # noqa: BLE001
+        log_status("macro", "us treasury curve", False, 0, e)
+        print("treasury FAILED", e)
+
+    deadline = time.time() + FRED_BUDGET_SECONDS
     for sid, desc in FRED.items():
+        if time.time() > deadline:
+            log_status("macro", sid, False, 0, "skipped: FRED time budget used up")
+            continue
         try:
-            df = parse_fred(get(f"https://fred.stlouisfed.org/graph/fredgraph.csv?id={sid}"))
+            df = parse_fred(get(f"https://fred.stlouisfed.org/graph/fredgraph.csv?id={sid}", timeout=(5, 10), tries=1))
             write_csv(df, DATA / "macro" / f"fred_{sid}.csv")
             log_status("macro", sid, True, len(df), f"last {df.index.max().date()}")
             print(sid, len(df), df.index.max().date())

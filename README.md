@@ -12,8 +12,10 @@ Data pipeline for the Stan the Man stock analysis (claude.ai project "Stan the M
 | `data/fundamentals/<ticker>/snapshot.csv` | One row per week: market value, P/E, EV/EBITDA, yield, payout, beta, debt, cash, margins, analyst targets and count | Yahoo Finance | weekly |
 | `data/fundamentals/<ticker>/estimates_*.csv`, `eps_trend.csv`, `growth.csv` | Analyst consensus for EPS and revenue, revisions, growth (missing for some European names) | Yahoo Finance | weekly |
 | `data/factors/*.csv` | Fama-French five factors and momentum, Europe and Developed, monthly (and daily for Europe), in percent, in USD | Kenneth French data library | weekly |
-| `data/macro/fred_*.csv` | US 10-year and 3-month yields, Fed funds, Swiss and German 10-year yields, Swiss 3-month rate, Swiss CPI | FRED | weekly |
-| `data/macro/snb_rendoblim.csv` | Yields on Swiss Confederation bonds by maturity | SNB data portal | weekly |
+| `data/macro/snb_rendoblim.csv` | Yields on Swiss Confederation bonds by maturity (1 to 30 years), monthly, 1988 to July 2025 (the SNB's old method) | SNB data portal | weekly |
+| `data/macro/snb_rendoblid.csv` | Swiss Confederation bond yields, the SNB's current series | SNB data portal | weekly |
+| `data/macro/ust_yield_curve.csv` | US Treasury par yield curve, daily since 2000, 1 month to 30 years | US Treasury | weekly |
+| `data/macro/fred_*.csv` | Fed funds, Swiss 3-month rate, Swiss CPI and others, when FRED answers (it often does not answer GitHub's servers, so it gets 45 seconds) | FRED | weekly |
 | `data/derived/prices_chf.csv` | Adjusted prices of every ticker converted to CHF, from 2000 | `risk.py` | after each price run |
 | `data/derived/risk_metrics.csv` | Per ticker, in CHF: 5-year return and volatility, maximum drawdown (all history and 5 years), 1-day and 1-month VaR and expected shortfall at 95%, beta and downside beta to the SPI, beta to MSCI World, correlation with gold, worst calendar year, 2008 and 2022 returns | `risk.py` | after each price run |
 | `data/derived/correlation_weekly_5y.csv` | Weekly correlations of the holdings, candidate, gold, SPI and MSCI World | `risk.py` | after each price run |
