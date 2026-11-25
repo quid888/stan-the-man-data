@@ -211,3 +211,55 @@ run_utc,source,item,ok,rows,note
 2026-11-25 15:12,scores,SIKA.SW,1,1,"Wonderful business, wait for the price"
 2026-11-25 15:12,scores,VIB3.DE,1,1,Pass: neither great nor cheap enough
 2026-11-25 15:12,scores,BOY.L,1,1,Pass: neither great nor cheap enough
+2026-11-25 15:15,prices,NESN.SW,1,9436,last 2026-11-25
+2026-11-25 15:15,prices,SGSN.SW,1,8068,last 2026-11-25
+2026-11-25 15:15,prices,SCMN.SW,1,7153,last 2026-11-25
+2026-11-25 15:15,prices,GEBN.SW,1,7184,last 2026-11-25
+2026-11-25 15:15,prices,OERL.SW,1,6563,last 2026-11-25
+2026-11-25 15:15,prices,SCHP.SW,1,8066,last 2026-11-25
+2026-11-25 15:15,prices,ULVR.L,1,9848,last 2026-11-25
+2026-11-25 15:15,prices,BN.PA,1,9772,last 2026-11-25
+2026-11-25 15:15,prices,BVI.PA,1,4884,last 2026-11-25
+2026-11-25 15:15,prices,ITRK.L,1,6223,last 2026-11-25
+2026-11-25 15:15,prices,DTE.DE,1,7690,last 2026-11-25
+2026-11-25 15:15,prices,KPN.AS,1,8162,last 2026-11-25
+2026-11-25 15:15,prices,SIKA.SW,1,8068,last 2026-11-25
+2026-11-25 15:15,prices,VIB3.DE,1,7084,last 2026-11-25
+2026-11-25 15:15,prices,BOY.L,1,9848,last 2026-11-25
+2026-11-25 15:15,prices,^SSMI,1,9052,last 2026-11-25
+2026-11-25 15:15,prices,^SSHI,1,3445,last 2026-11-25
+2026-11-25 15:15,prices,URTH,1,3740,last 2026-11-25
+2026-11-25 15:15,prices,^STOXX50E,1,4929,last 2026-11-25
+2026-11-25 15:15,prices,^GSPC,1,24844,last 2026-11-25
+2026-11-25 15:15,prices,GC=F,1,6586,last 2026-11-25
+2026-11-25 15:15,prices,CHF=X,1,6030,last 2026-11-25
+2026-11-25 15:15,prices,EURCHF=X,1,6187,last 2026-11-25
+2026-11-25 15:15,prices,GBPCHF=X,1,6022,last 2026-11-25
+2026-11-25 15:15,prices,^VIX,1,9296,last 2026-11-25
+2026-11-25 15:16,prices,^MOVE,1,5944,last 2026-11-25
+2026-11-25 15:16,prices,HYG,1,4940,last 2026-11-25
+2026-11-25 15:16,prices,IEF,1,6122,last 2026-11-25
+2026-11-25 15:16,prices,SPY,1,8515,last 2026-11-25
+2026-11-25 15:16,prices,RSP,1,5932,last 2026-11-25
+2026-11-25 15:16,prices,IWM,1,6665,last 2026-11-25
+2026-11-25 15:16,prices,IWD,1,6665,last 2026-11-25
+2026-11-25 15:16,prices,IWF,1,6665,last 2026-11-25
+2026-11-25 15:16,prices,HG=F,1,6590,last 2026-11-25
+2026-11-25 15:16,risk,derived,1,21,21 factor regressions
+2026-11-25 15:16,regime,cape models,1,1871,ECY model R2 0.33; EY model R2 0.25
+2026-11-25 15:16,regime,summary,1,21,"Defense: valuation expensive, fragility high"
+2026-11-25 15:16,scores,NESN.SW,1,1,"Wonderful business, wait for the price"
+2026-11-25 15:16,scores,SGSN.SW,1,1,"Wonderful business, wait for the price"
+2026-11-25 15:16,scores,SCMN.SW,1,1,Pass: neither great nor cheap enough
+2026-11-25 15:16,scores,GEBN.SW,1,1,"Wonderful business, wait for the price"
+2026-11-25 15:16,scores,OERL.SW,1,1,Pass: neither great nor cheap enough
+2026-11-25 15:16,scores,SCHP.SW,1,1,"Wonderful business, wait for the price"
+2026-11-25 15:16,scores,ULVR.L,1,1,"Wonderful business, wait for the price"
+2026-11-25 15:16,scores,BN.PA,1,1,Pass: neither great nor cheap enough
+2026-11-25 15:16,scores,BVI.PA,1,1,"Wonderful business, wait for the price"
+2026-11-25 15:16,scores,ITRK.L,1,1,"Wonderful business, wait for the price"
+2026-11-25 15:16,scores,DTE.DE,1,1,"Burry candidate: cheap and clean; needs a catalyst, small size"
+2026-11-25 15:16,scores,KPN.AS,1,1,Pass: neither great nor cheap enough
+2026-11-25 15:16,scores,SIKA.SW,1,1,"Wonderful business, wait for the price"
+2026-11-25 15:16,scores,VIB3.DE,1,1,Pass: neither great nor cheap enough
+2026-11-25 15:16,scores,BOY.L,1,1,Pass: neither great nor cheap enough
