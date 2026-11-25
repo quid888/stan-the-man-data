@@ -52,3 +52,28 @@ run_utc,source,item,ok,rows,note
 2026-11-25 14:03,macro,IRLTLT01CHM156N,0,0,"https://fred.stlouisfed.org/graph/fredgraph.csv?id=IRLTLT01CHM156N: HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Read timed out. (read timeout=30)"
 2026-11-25 14:05,macro,IR3TIB01CHM156N,0,0,"https://fred.stlouisfed.org/graph/fredgraph.csv?id=IR3TIB01CHM156N: HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Read timed out. (read timeout=30)"
 2026-11-25 14:05,risk,derived,1,21,21 factor regressions
+2026-11-25 14:07,prices,NESN.SW,1,9436,last 2026-11-25
+2026-11-25 14:07,prices,SGSN.SW,1,8068,last 2026-11-25
+2026-11-25 14:07,prices,SCMN.SW,1,7153,last 2026-11-25
+2026-11-25 14:07,prices,GEBN.SW,1,7184,last 2026-11-25
+2026-11-25 14:07,prices,OERL.SW,1,6563,last 2026-11-25
+2026-11-25 14:07,prices,SCHP.SW,1,8066,last 2026-11-25
+2026-11-25 14:07,prices,ULVR.L,1,9848,last 2026-11-25
+2026-11-25 14:07,prices,BN.PA,1,9772,last 2026-11-25
+2026-11-25 14:07,prices,BVI.PA,1,4884,last 2026-11-25
+2026-11-25 14:07,prices,ITRK.L,1,6223,last 2026-11-25
+2026-11-25 14:07,prices,DTE.DE,1,7690,last 2026-11-25
+2026-11-25 14:07,prices,KPN.AS,1,8162,last 2026-11-25
+2026-11-25 14:08,prices,SIKA.SW,1,8068,last 2026-11-25
+2026-11-25 14:08,prices,VIB3.DE,1,7084,last 2026-11-25
+2026-11-25 14:08,prices,BOY.L,1,9848,last 2026-11-25
+2026-11-25 14:08,prices,^SSMI,1,9052,last 2026-11-25
+2026-11-25 14:08,prices,^SSHI,1,3445,last 2026-11-25
+2026-11-25 14:08,prices,URTH,1,3739,last 2026-11-24
+2026-11-25 14:08,prices,^STOXX50E,1,4929,last 2026-11-25
+2026-11-25 14:08,prices,^GSPC,1,24843,last 2026-11-24
+2026-11-25 14:08,prices,GC=F,1,6586,last 2026-11-25
+2026-11-25 14:08,prices,CHF=X,1,6030,last 2026-11-25
+2026-11-25 14:08,prices,EURCHF=X,1,6187,last 2026-11-25
+2026-11-25 14:08,prices,GBPCHF=X,1,6022,last 2026-11-25
+2026-11-25 14:08,risk,derived,1,21,21 factor regressions
