@@ -48,22 +48,14 @@ def parse_snb(text: str) -> pd.DataFrame:
 
 def get(url):
     def go():
-        r = requests.get(url, timeout=60, headers={"User-Agent": "stan-the-man-data (personal research)"})
+        r = requests.get(url, timeout=(10, 30), headers={"User-Agent": "stan-the-man-data (personal research)"})
         r.raise_for_status()
         return r.text
-    return retry(go, tries=3, base_sleep=5, what=url)
+    return retry(go, tries=2, base_sleep=3, what=url)
 
 
 def main():
-    for sid, desc in FRED.items():
-        try:
-            df = parse_fred(get(f"https://fred.stlouisfed.org/graph/fredgraph.csv?id={sid}"))
-            write_csv(df, DATA / "macro" / f"fred_{sid}.csv")
-            log_status("macro", sid, True, len(df), f"last {df.index.max().date()}")
-            print(sid, len(df), df.index.max().date())
-        except Exception as e:  # noqa: BLE001
-            log_status("macro", sid, False, 0, e)
-            print(sid, "FAILED", e)
+    # SNB first: the Swiss data matters most, and FRED can be slow from cloud servers
     for cube, desc in SNB_CUBES.items():
         try:
             df = parse_snb(get(f"https://data.snb.ch/api/cube/{cube}/data/csv/en"))
@@ -73,6 +65,16 @@ def main():
         except Exception as e:  # noqa: BLE001
             log_status("macro", f"snb {cube}", False, 0, e)
             print(cube, "FAILED", e)
+
+    for sid, desc in FRED.items():
+        try:
+            df = parse_fred(get(f"https://fred.stlouisfed.org/graph/fredgraph.csv?id={sid}"))
+            write_csv(df, DATA / "macro" / f"fred_{sid}.csv")
+            log_status("macro", sid, True, len(df), f"last {df.index.max().date()}")
+            print(sid, len(df), df.index.max().date())
+        except Exception as e:  # noqa: BLE001
+            log_status("macro", sid, False, 0, e)
+            print(sid, "FAILED", e)
 
 
 if __name__ == "__main__":

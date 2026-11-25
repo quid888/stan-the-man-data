@@ -35,9 +35,11 @@ jobs:
         env:
           FULL: ${{ github.event.inputs.full || '0' }}
         run: python scripts/prices.py
+        timeout-minutes: 20
         continue-on-error: true
       - name: Risk numbers
         run: python scripts/risk.py
+        timeout-minutes: 5
         continue-on-error: true
       - name: Commit data
         run: |
