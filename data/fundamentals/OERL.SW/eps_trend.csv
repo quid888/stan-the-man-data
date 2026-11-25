@@ -1,5 +1,5 @@
 period,run_utc,current,7daysAgo,30daysAgo,60daysAgo,90daysAgo,currency,methodology
-0q,2026-11-25 13:57,,,,,,CHF,normalized
-+1q,2026-11-25 13:57,,,,,,CHF,normalized
-0y,2026-11-25 13:57,0.28183,0.27741,0.27596,0.27596,0.22818,CHF,normalized
-+1y,2026-11-25 13:57,0.31006,0.32128,0.30229,0.30229,0.29174,CHF,normalized
+0q,2026-11-25 14:09,,,,,,CHF,normalized
++1q,2026-11-25 14:09,,,,,,CHF,normalized
+0y,2026-11-25 14:09,0.28183,0.27741,0.27596,0.27596,0.22818,CHF,normalized
++1y,2026-11-25 14:09,0.31006,0.32128,0.30229,0.30229,0.29174,CHF,normalized

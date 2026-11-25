@@ -77,3 +77,35 @@ run_utc,source,item,ok,rows,note
 2026-11-25 14:08,prices,EURCHF=X,1,6187,last 2026-11-25
 2026-11-25 14:08,prices,GBPCHF=X,1,6022,last 2026-11-25
 2026-11-25 14:08,risk,derived,1,21,21 factor regressions
+2026-11-25 14:09,fundamentals,NESN.SW,1,10,"income_annual:5, balance_annual:5, cashflow_annual:5, balance_quarterly:3, snapshot, estimates_eps, estimates_revenue, eps_trend, growth, dividends:25"
+2026-11-25 14:09,fundamentals,SGSN.SW,1,10,"income_annual:4, balance_annual:5, cashflow_annual:5, balance_quarterly:3, snapshot, estimates_eps, estimates_revenue, eps_trend, growth, dividends:31"
+2026-11-25 14:09,fundamentals,SCMN.SW,1,12,"income_annual:4, balance_annual:5, cashflow_annual:5, income_quarterly:7, balance_quarterly:7, cashflow_quarterly:7, snapshot, estimates_eps, estimates_revenue, eps_trend, growth, dividends:27"
+2026-11-25 14:09,fundamentals,GEBN.SW,1,10,"income_annual:4, balance_annual:5, cashflow_annual:5, balance_quarterly:3, snapshot, estimates_eps, estimates_revenue, eps_trend, growth, dividends:29"
+2026-11-25 14:09,fundamentals,OERL.SW,1,10,"income_annual:5, balance_annual:5, cashflow_annual:5, balance_quarterly:3, snapshot, estimates_eps, estimates_revenue, eps_trend, growth, dividends:15"
+2026-11-25 14:10,fundamentals,SCHP.SW,1,12,"income_annual:4, balance_annual:5, cashflow_annual:4, income_quarterly:6, balance_quarterly:6, cashflow_quarterly:5, snapshot, estimates_eps, estimates_revenue, eps_trend, growth, dividends:23"
+2026-11-25 14:10,fundamentals,ULVR.L,1,10,"income_annual:5, balance_annual:4, cashflow_annual:5, balance_quarterly:3, snapshot, estimates_eps, estimates_revenue, eps_trend, growth, dividends:104"
+2026-11-25 14:10,fundamentals,BN.PA,1,10,"income_annual:5, balance_annual:5, cashflow_annual:4, balance_quarterly:3, snapshot, estimates_eps, estimates_revenue, eps_trend, growth, dividends:44"
+2026-11-25 14:10,fundamentals,BVI.PA,1,10,"income_annual:5, balance_annual:5, cashflow_annual:5, balance_quarterly:3, snapshot, estimates_eps, estimates_revenue, eps_trend, growth, dividends:18"
+2026-11-25 14:10,fundamentals,ITRK.L,1,10,"income_annual:5, balance_annual:5, cashflow_annual:4, balance_quarterly:3, snapshot, estimates_eps, estimates_revenue, eps_trend, growth, dividends:47"
+2026-11-25 14:11,fundamentals,DTE.DE,1,12,"income_annual:4, balance_annual:5, cashflow_annual:5, income_quarterly:7, balance_quarterly:5, cashflow_quarterly:7, snapshot, estimates_eps, estimates_revenue, eps_trend, growth, dividends:25"
+2026-11-25 14:11,fundamentals,KPN.AS,1,11,"income_annual:5, balance_annual:4, cashflow_annual:5, income_quarterly:5, balance_quarterly:2, snapshot, estimates_eps, estimates_revenue, eps_trend, growth, dividends:52"
+2026-11-25 14:11,fundamentals,SIKA.SW,1,10,"income_annual:5, balance_annual:5, cashflow_annual:5, balance_quarterly:3, snapshot, estimates_eps, estimates_revenue, eps_trend, growth, dividends:20"
+2026-11-25 14:11,fundamentals,VIB3.DE,1,12,"income_annual:4, balance_annual:5, cashflow_annual:5, income_quarterly:7, balance_quarterly:6, cashflow_quarterly:7, snapshot, estimates_eps, estimates_revenue, eps_trend, growth, dividends:27"
+2026-11-25 14:11,fundamentals,BOY.L,1,10,"income_annual:5, balance_annual:5, cashflow_annual:5, balance_quarterly:2, snapshot, estimates_eps, estimates_revenue, eps_trend, growth, dividends:68"
+2026-11-25 14:11,factors,europe_5f_monthly,1,435,last 2026-09-30
+2026-11-25 14:11,factors,europe_mom_monthly,1,431,last 2026-09-30
+2026-11-25 14:11,factors,developed_5f_monthly,1,435,last 2026-09-30
+2026-11-25 14:11,factors,developed_mom_monthly,1,431,last 2026-09-30
+2026-11-25 14:11,factors,europe_5f_daily,1,9458,last 2026-09-30
+2026-11-25 14:11,factors,europe_mom_daily,1,9370,last 2026-09-30
+2026-11-25 14:11,macro,snb rendoblim,1,5744,last 2025-07
+2026-11-25 14:12,macro,snb rendoblid,1,155268,last 2025-07-31
+2026-11-25 14:12,macro,us treasury curve,1,6728,last 2026-11-24
+2026-11-25 14:12,macro,DGS10,0,0,"https://fred.stlouisfed.org/graph/fredgraph.csv?id=DGS10: HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Read timed out. (read timeout=10)"
+2026-11-25 14:12,macro,DFF,0,0,"https://fred.stlouisfed.org/graph/fredgraph.csv?id=DFF: HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Read timed out. (read timeout=10)"
+2026-11-25 14:13,macro,DTB3,0,0,"https://fred.stlouisfed.org/graph/fredgraph.csv?id=DTB3: HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Read timed out. (read timeout=10)"
+2026-11-25 14:13,macro,IRLTLT01CHM156N,0,0,"https://fred.stlouisfed.org/graph/fredgraph.csv?id=IRLTLT01CHM156N: HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Read timed out. (read timeout=10)"
+2026-11-25 14:13,macro,IR3TIB01CHM156N,0,0,skipped: FRED time budget used up
+2026-11-25 14:13,macro,CHECPIALLMINMEI,0,0,skipped: FRED time budget used up
+2026-11-25 14:13,macro,IRLTLT01DEM156N,0,0,skipped: FRED time budget used up
+2026-11-25 14:13,risk,derived,1,21,21 factor regressions

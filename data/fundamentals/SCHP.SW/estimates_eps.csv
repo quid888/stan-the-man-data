@@ -1,5 +1,5 @@
 period,run_utc,avg,low,high,numberOfAnalysts,yearAgoEps,growth,currency,methodology
-0q,2026-11-25 13:57,2.65,2.65,2.65,1.0,,,CHF,normalized
-+1q,2026-11-25 13:57,,,,,,,CHF,normalized
-0y,2026-11-25 13:57,10.7605,10.32,11.032,4.0,9.9758,0.0787,CHF,normalized
-+1y,2026-11-25 13:57,11.9212,11.03,12.73,5.0,10.7605,0.1079,CHF,normalized
+0q,2026-11-25 14:10,2.65,2.65,2.65,1.0,,,CHF,normalized
++1q,2026-11-25 14:10,,,,,,,CHF,normalized
+0y,2026-11-25 14:10,10.7605,10.32,11.032,4.0,9.9758,0.0787,CHF,normalized
++1y,2026-11-25 14:10,11.9212,11.03,12.73,5.0,10.7605,0.1079,CHF,normalized
