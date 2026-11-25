@@ -13,7 +13,7 @@ Data pipeline for the Stan the Man stock analysis (claude.ai project "Stan the M
 | `data/fundamentals/<ticker>/estimates_*.csv`, `eps_trend.csv`, `growth.csv` | Analyst consensus for EPS and revenue, revisions, growth (missing for some European names) | Yahoo Finance | weekly |
 | `data/factors/*.csv` | Fama-French five factors and momentum, Europe and Developed, monthly (and daily for Europe), in percent, in USD | Kenneth French data library | weekly |
 | `data/macro/snb_rendoblim.csv` | Yields on Swiss Confederation bonds by maturity (1 to 30 years), monthly, 1988 to July 2025 (the SNB's old method) | SNB data portal | weekly |
-| `data/macro/snb_rendoblid.csv` | Swiss Confederation bond yields, the SNB's current series | SNB data portal | weekly |
+| `data/macro/snb_rendoblid.csv` | Swiss Confederation bond yields by maturity, daily, to July 2025 (also the old method) | SNB data portal | weekly |
 | `data/macro/ust_yield_curve.csv` | US Treasury par yield curve, daily since 2000, 1 month to 30 years | US Treasury | weekly |
 | `data/macro/fred_*.csv` | Fed funds, Swiss 3-month rate, Swiss CPI and others, when FRED answers (it often does not answer GitHub's servers, so it gets 45 seconds) | FRED | weekly |
 | `data/derived/prices_chf.csv` | Adjusted prices of every ticker converted to CHF, from 2000 | `risk.py` | after each price run |
@@ -32,6 +32,8 @@ Data pipeline for the Stan the Man stock analysis (claude.ai project "Stan the M
 - Yahoo data is for personal research, not redistribution; keep this repo private.
 - No Swiss insider-transaction feed yet (SIX publishes them on its website only).
 - Kenneth French's international factors are in USD, which is why the factor regressions use USD returns.
+- Swiss bond yields after July 2025: the SNB moved to a new method and its new data-portal series is not wired in yet. Until it is, take the current 10-year Confederation yield from the SNB's "current interest rates" page.
+- FRED does not answer GitHub's servers; US yields come from the US Treasury instead.
 
 ## Use in a session
 `git clone --depth 1 https://github.com/quid888/stan-the-man-data` (or `git pull --ff-only` in an existing clone), then read the CSVs with pandas. `python tests/offline_test.py` checks the parsers and the risk script without network access.
