@@ -1,0 +1,43 @@
+name: market-regime
+
+# Market regime (with a fresh copy of Shiller's data) and the Munger and Burry scores, on demand.
+# The daily and weekly jobs run the same steps; this one is for a refresh without waiting.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+env:
+  PYTHONUNBUFFERED: "1"
+
+concurrency:
+  group: data-commit
+  cancel-in-progress: false
+
+jobs:
+  regime:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+      - name: Market regime
+        run: python scripts/regime.py --fetch
+        timeout-minutes: 5
+        continue-on-error: true
+      - name: Munger and Burry scores
+        run: python scripts/scores.py
+        timeout-minutes: 5
+        continue-on-error: true
+      - name: Commit data
+        run: |
+          git config user.name "stan-the-man-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A data
+          if git diff --cached --quiet; then echo "no data changes"; exit 0; fi
+          git commit -m "data: regime $(date -u +'%Y-%m-%d %H:%M') UTC"
+          for i in 1 2 3; do git pull --rebase && git push && break; sleep 5; done
