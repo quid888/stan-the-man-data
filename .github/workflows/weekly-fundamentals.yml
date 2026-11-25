@@ -1,7 +1,8 @@
 name: weekly-fundamentals
 
 # Company statements, consensus estimates and dividends (Yahoo), Fama-French factors (Kenneth French),
-# rates and inflation (FRED, SNB), then the risk numbers again with the new factors.
+# rates and inflation (FRED, SNB), then the risk numbers again with the new factors, the market regime
+# (Shiller CAPE, yield curve, VIX, credit) and the Munger and Burry scores.
 # Runs on Saturdays at 05:23 UTC, on demand, and when the code changes.
 on:
   schedule:
@@ -45,6 +46,14 @@ jobs:
         continue-on-error: true
       - name: Risk numbers
         run: python scripts/risk.py
+        timeout-minutes: 5
+        continue-on-error: true
+      - name: Market regime (downloads Shiller's data again)
+        run: python scripts/regime.py --fetch
+        timeout-minutes: 5
+        continue-on-error: true
+      - name: Munger and Burry scores
+        run: python scripts/scores.py
         timeout-minutes: 5
         continue-on-error: true
       - name: Commit data
