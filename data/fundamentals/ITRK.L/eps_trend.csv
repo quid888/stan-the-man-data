@@ -1,0 +1,5 @@
+period,run_utc,current,7daysAgo,30daysAgo,60daysAgo,90daysAgo,currency,methodology
+0q,2026-11-25 13:58,,,,,,GBP,normalized
++1q,2026-11-25 13:58,,,,,,GBP,normalized
+0y,2026-11-25 13:58,2.67986,2.67125,2.67125,2.67125,2.67125,GBP,normalized
++1y,2026-11-25 13:58,2.89982,2.89392,2.89392,2.89392,2.89392,GBP,normalized

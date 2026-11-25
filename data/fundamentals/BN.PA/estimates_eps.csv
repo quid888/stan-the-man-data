@@ -1,0 +1,5 @@
+period,run_utc,avg,low,high,yearAgoEps,numberOfAnalysts,growth,currency,methodology
+0q,2026-11-25 13:57,,,,,,,EUR,normalized
++1q,2026-11-25 13:57,,,,,,,EUR,normalized
+0y,2026-11-25 13:57,3.91802,3.75,4.00065,3.8,20.0,0.0311,EUR,normalized
++1y,2026-11-25 13:57,4.20107,3.98,4.39223,3.91802,21.0,0.0722,EUR,normalized
