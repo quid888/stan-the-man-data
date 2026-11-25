@@ -1,0 +1,25 @@
+ticker,name,role,currency,price_unit,group,notes
+NESN.SW,Nestlé,holding,CHF,unit,core,
+SGSN.SW,SGS,holding,CHF,unit,core,
+SCMN.SW,Swisscom,holding,CHF,unit,core,
+GEBN.SW,Geberit,holding,CHF,unit,core,
+OERL.SW,OC Oerlikon,holding,CHF,unit,satellite,
+SCHP.SW,Schindler (participation certificate),candidate,CHF,unit,alternative,alternative for the fourth slot
+ULVR.L,Unilever,peer,GBP,pence,nestle,
+BN.PA,Danone,peer,EUR,unit,nestle,
+BVI.PA,Bureau Veritas,peer,EUR,unit,sgs,
+ITRK.L,Intertek,peer,GBP,pence,sgs,
+DTE.DE,Deutsche Telekom,peer,EUR,unit,swisscom,
+KPN.AS,KPN,peer,EUR,unit,swisscom,
+SIKA.SW,Sika,peer,CHF,unit,geberit,
+VIB3.DE,Villeroy & Boch,peer,EUR,unit,geberit,
+BOY.L,Bodycote,peer,GBP,pence,oerlikon,
+^SSMI,SMI,benchmark,CHF,unit,index,Swiss blue chips (price index)
+^SSHI,SPI,benchmark,CHF,unit,index,Swiss Performance Index (total return)
+URTH,iShares MSCI World ETF,benchmark,USD,unit,index,proxy for the world index fund
+^STOXX50E,Euro Stoxx 50,benchmark,EUR,unit,index,
+^GSPC,S&P 500,benchmark,USD,unit,index,
+GC=F,Gold (COMEX futures),commodity,USD,unit,gold,per troy ounce
+CHF=X,USD/CHF,fx,CHF,unit,fx,CHF per USD
+EURCHF=X,EUR/CHF,fx,CHF,unit,fx,CHF per EUR
+GBPCHF=X,GBP/CHF,fx,CHF,unit,fx,CHF per GBP

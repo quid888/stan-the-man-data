@@ -1,0 +1,49 @@
+name: daily-prices
+
+# Prices for every ticker in config/watchlist.csv, then the risk numbers in data/derived.
+# Runs on weekdays at 22:17 UTC (after the US close), on demand, and when the code changes.
+on:
+  schedule:
+    - cron: "17 22 * * 1-5"
+  workflow_dispatch:
+    inputs:
+      full:
+        description: "re-download full history for every ticker (1 = yes)"
+        default: "0"
+  push:
+    branches: [main]
+    paths: ["scripts/**", ".github/workflows/**", "requirements.txt", "config/**"]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: data-commit
+  cancel-in-progress: false
+
+jobs:
+  prices:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+      - name: Prices
+        env:
+          FULL: ${{ github.event.inputs.full || '0' }}
+        run: python scripts/prices.py
+        continue-on-error: true
+      - name: Risk numbers
+        run: python scripts/risk.py
+        continue-on-error: true
+      - name: Commit data
+        run: |
+          git config user.name "stan-the-man-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A data
+          if git diff --cached --quiet; then echo "no data changes"; exit 0; fi
+          git commit -m "data: prices $(date -u +'%Y-%m-%d %H:%M') UTC"
+          for i in 1 2 3; do git pull --rebase && git push && break; sleep 5; done

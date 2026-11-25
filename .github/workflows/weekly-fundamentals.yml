@@ -1,0 +1,50 @@
+name: weekly-fundamentals
+
+# Company statements, consensus estimates and dividends (Yahoo), Fama-French factors (Kenneth French),
+# rates and inflation (FRED, SNB), then the risk numbers again with the new factors.
+# Runs on Saturdays at 05:23 UTC, on demand, and when the code changes.
+on:
+  schedule:
+    - cron: "23 5 * * 6"
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ["scripts/**", ".github/workflows/**", "requirements.txt", "config/**"]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: data-commit
+  cancel-in-progress: false
+
+jobs:
+  weekly:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+      - name: Fundamentals, estimates, dividends
+        run: python scripts/fundamentals.py
+        continue-on-error: true
+      - name: Fama-French factors
+        run: python scripts/factors.py
+        continue-on-error: true
+      - name: Rates and inflation
+        run: python scripts/macro.py
+        continue-on-error: true
+      - name: Risk numbers
+        run: python scripts/risk.py
+        continue-on-error: true
+      - name: Commit data
+        run: |
+          git config user.name "stan-the-man-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A data
+          if git diff --cached --quiet; then echo "no data changes"; exit 0; fi
+          git commit -m "data: weekly $(date -u +'%Y-%m-%d %H:%M') UTC"
+          for i in 1 2 3; do git pull --rebase && git push && break; sleep 5; done
