@@ -171,6 +171,12 @@ def probit(spread):
     return 0.5 * (1 + math.erf(z / math.sqrt(2)))
 
 
+def ordinal(x):
+    n = int(round(x))
+    suf = "th" if 10 <= n % 100 <= 20 else {1: "st", 2: "nd", 3: "rd"}.get(n % 10, "th")
+    return f"{n}{suf}"
+
+
 def clip(v, lo=0.0, hi=100.0):
     return float(min(hi, max(lo, v)))
 
@@ -195,21 +201,31 @@ def main():
         cape_pct = pct_rank(s["cape"], last["cape"])
         cape_pct_90 = pct_rank(s.loc["1990":, "cape"], last["cape"])
         ecy_now = last["excess_cape_yield"]
-        preds = []
-        for m in models.values():
-            preds.append((m["a"] + m["b"] * last[m["x"]], m["sd"], m))
-        if preds:
-            exp_real = float(np.mean([p for p, _, _ in preds]))
-            sd = float(np.mean([q for _, q, _ in preds]))
-            band = (exp_real - 1.2816 * sd, exp_real + 1.2816 * sd)
-        mtxt = "; ".join(f"{k.upper()} model R2 {m['r2']:.2f} (n={m['n']} months)" for k, m in models.items())
+        # three estimates of the next ten years' real return, because linear fits pull extremes toward the average:
+        # 1/CAPE regression, excess-CAPE-yield regression, and what followed when CAPE was within 10% of today's level
+        est = {}
+        for k, m in models.items():
+            est[k] = m["a"] + m["b"] * last[m["x"]]
+        near = s[(s["cape"] >= last["cape"] * 0.9) & (s["cape"] <= last["cape"] * 1.1)].dropna(subset=["fwd10"])
+        if len(near) >= 12:
+            est["analog"] = near["fwd10"].mean()
+        if est:
+            exp_real = float(np.median(list(est.values())))
+            band = (float(min(est.values())), float(max(est.values())))
+        episodes = ", ".join(sorted({str(y) for y in near.index.year})) if len(near) else "none"
+        mtxt = "; ".join(f"{k.upper()} model R2 {m['r2']:.2f}" for k, m in models.items())
+        names = {"ey": "1/CAPE model", "ecy": "excess-yield model", "analog": f"after similar CAPE levels ({len(near)} months: {episodes})"}
         add("valuation", "cape", "S&P 500 Shiller CAPE", last["cape"], "x", cape_date.date(), cape_pct,
-            f"{cape_pct:.0f}th percentile since 1881, {cape_pct_90:.0f}th since 1990",
-            f"Expected US real return over 10 years about {exp_real:.1f}% a year (80% band {band[0]:.1f}% to {band[1]:.1f}%); {mtxt}",
+            f"{ordinal(cape_pct)} percentile since 1881, {ordinal(cape_pct_90)} since 1990",
+            f"US real return over the next 10 years: about {exp_real:.1f}% a year (median of three methods; " +
+            "; ".join(f"{names[k]} {v:.1f}%" for k, v in est.items()) + f"). {mtxt}",
             "Robert Shiller, ie_data.xls")
+        for k, v in est.items():
+            add("valuation", f"exp10_{k}", f"10-year real return estimate: {names[k].split(' (')[0]}", v, "% a year", cape_date.date(), None,
+                names[k], "One of the three estimates behind the hurdle rate", "Robert Shiller, ie_data.xls; regression in regime.py")
         ecy_pct = pct_rank(s["excess_cape_yield"], ecy_now)
         add("valuation", "ecy", "Excess CAPE yield (1/CAPE minus real 10-year yield)", ecy_now, "%", cape_date.date(), ecy_pct,
-            f"{ecy_pct:.0f}th percentile since 1881 (low = stocks expensive against bonds)",
+            f"{ordinal(ecy_pct)} percentile since 1881 (low = stocks expensive against bonds)",
             "The equity premium over real bonds that today's price leaves; the lower it is, the less stocks pay for their extra risk",
             "Robert Shiller, ie_data.xls")
         if "tr_cape" in s and s["tr_cape"].notna().any():
@@ -221,6 +237,9 @@ def main():
         if "ecy" in models:
             m = models["ecy"]
             hist["model10"] = m["a"] + m["b"] * hist["excess_cape_yield"]
+        if "ey" in models:
+            m = models["ey"]
+            hist["model10_ey"] = m["a"] + m["b"] * (100 / hist["cape"])
         log_status("regime", "cape models", True, len(s), mtxt)
     except Exception as e:  # noqa: BLE001
         log_status("regime", "shiller", False, 0, e)
@@ -314,7 +333,7 @@ def main():
         if pts is not None:
             comp["concentration"] = pts
         add("concentration", key, nm, r3, "% over 3 years", r.index[-1].date(), pct_rank(r, r.iloc[-1]),
-            f"{r1:+.1f}% over 1 year; ratio at the {pct_rank(r, r.iloc[-1]):.0f}th percentile of its history", text,
+            f"{r1:+.1f}% over 1 year; ratio at the {ordinal(pct_rank(r, r.iloc[-1]))} percentile of its history", text,
             "Yahoo Finance via stan-the-man-data", points=pts)
         hist = hist.join((r / r.iloc[0] * 100).resample("ME").last().rename(key), how="outer")
 
