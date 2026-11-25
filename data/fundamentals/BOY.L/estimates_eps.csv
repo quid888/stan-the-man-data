@@ -1,5 +1,5 @@
 period,run_utc,avg,low,high,yearAgoEps,numberOfAnalysts,growth,currency,methodology
-0q,2026-11-25 14:11,,,,,,,GBP,normalized
-+1q,2026-11-25 14:11,,,,,,,GBP,normalized
-0y,2026-11-25 14:11,0.49927,0.484,0.51,0.443,6.0,0.127,GBP,normalized
-+1y,2026-11-25 14:11,0.56807,0.539,0.603,0.49927,6.0,0.1378,GBP,normalized
+0q,2026-11-25 15:07,,,,,,,GBP,normalized
++1q,2026-11-25 15:07,,,,,,,GBP,normalized
+0y,2026-11-25 15:07,0.49927,0.484,0.51,0.443,6.0,0.127,GBP,normalized
++1y,2026-11-25 15:07,0.56807,0.539,0.603,0.49927,6.0,0.1378,GBP,normalized
