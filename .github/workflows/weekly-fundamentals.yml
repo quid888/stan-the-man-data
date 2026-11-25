@@ -30,15 +30,19 @@ jobs:
       - run: pip install -r requirements.txt
       - name: Fundamentals, estimates, dividends
         run: python scripts/fundamentals.py
+        timeout-minutes: 25
         continue-on-error: true
       - name: Fama-French factors
         run: python scripts/factors.py
+        timeout-minutes: 5
         continue-on-error: true
       - name: Rates and inflation
         run: python scripts/macro.py
+        timeout-minutes: 6
         continue-on-error: true
       - name: Risk numbers
         run: python scripts/risk.py
+        timeout-minutes: 5
         continue-on-error: true
       - name: Commit data
         run: |

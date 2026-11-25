@@ -63,7 +63,7 @@ def parse_french(text: str) -> pd.DataFrame:
 
 def download(name, file):
     def go():
-        r = requests.get(BASE + file, timeout=60)
+        r = requests.get(BASE + file, timeout=(10, 60))
         r.raise_for_status()
         z = zipfile.ZipFile(io.BytesIO(r.content))
         inner = z.namelist()[0]
