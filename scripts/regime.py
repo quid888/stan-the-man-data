@@ -29,7 +29,6 @@ sys.path.insert(0, str(__import__("pathlib").Path(__file__).resolve().parent))
 from common import DATA, log_status, now_utc, retry, safe_name, write_csv  # noqa: E402
 
 SHILLER_PAGES = ["https://shillerdata.com/", "http://www.econ.yale.edu/~shiller/data.htm"]
-SHILLER_FALLBACK = ["http://www.econ.yale.edu/~shiller/data/ie_data.xls"]
 UA = {"User-Agent": "Mozilla/5.0 (stan-the-man-data research pipeline)"}
 
 NYFED_A, NYFED_B = -0.5333, -0.6330      # NY Fed yield-curve probit, estimated on 1959-2009 data
@@ -39,19 +38,44 @@ REQUIRED_RETURN_FLOOR = 7.0               # % nominal, floor for the implied-gro
 
 
 # ---------- Shiller data ----------
-def find_shiller_url():
+KNOWN_SHILLER_FILES = [
+    # GoDaddy-hosted copy linked from shillerdata.com (seen in 2025); the page is searched first for the current link
+    "https://img1.wsimg.com/blobby/go/e5e77e0b-59d1-44d9-ab25-4763ac982e53/downloads/c838cbf2-d3d1-49fe-b957-08441db9b674/ie_data.xls",
+    "http://www.econ.yale.edu/~shiller/data/ie_data.xls",
+]
+
+
+def shiller_candidates():
+    """Every ie_data.xls link on Shiller's pages, newest page first, then the known file locations."""
+    urls = []
     for page in SHILLER_PAGES:
         try:
-            html = requests.get(page, headers=UA, timeout=20).text
-            m = re.findall(r'href="([^"]*ie_data\.xls[^"]*)"', html, flags=re.I)
-            if m:
-                url = m[0]
-                if url.startswith("/"):
-                    url = re.match(r"https?://[^/]+", page).group(0) + url
-                return url
-        except Exception:  # noqa: BLE001
-            continue
-    return SHILLER_FALLBACK[0]
+            html = requests.get(page, headers=UA, timeout=20).text.replace("&amp;", "&")
+            for u in re.findall(r"""(https?://[^"'\s<>]*ie_data\.xls[^"'\s<>]*|/[^"'\s<>]*ie_data\.xls[^"'\s<>]*)""", html, flags=re.I):
+                if u.startswith("//"):
+                    u = "https:" + u
+                elif u.startswith("/"):
+                    u = re.match(r"https?://[^/]+", page).group(0) + u
+                if u not in urls:
+                    urls.append(u)
+        except Exception as e:  # noqa: BLE001
+            print("page", page, "failed", e)
+    return urls + [u for u in KNOWN_SHILLER_FILES if u not in urls]
+
+
+def download_shiller():
+    """First candidate whose bytes are really an Excel file (OLE2 for .xls, zip for .xlsx)."""
+    tried = []
+    for url in shiller_candidates():
+        try:
+            r = requests.get(url, headers=UA, timeout=60, allow_redirects=True)
+            head = r.content[:8]
+            if r.ok and (head.startswith(b"\xd0\xcf\x11\xe0") or head.startswith(b"PK")):
+                return url, r.content
+            tried.append(f"{url[:90]} -> {r.status_code} {r.headers.get('content-type', '')[:30]} {head!r}")
+        except Exception as e:  # noqa: BLE001
+            tried.append(f"{url[:90]} -> {e}")
+    raise RuntimeError("no Excel file at any Shiller link: " + " | ".join(tried))
 
 
 def parse_shiller(xls_bytes):
@@ -100,8 +124,7 @@ def parse_shiller(xls_bytes):
 def get_shiller(fetch):
     path = DATA / "macro" / "shiller_us.csv"
     if fetch or not path.exists():
-        url = find_shiller_url()
-        content = retry(lambda: requests.get(url, headers=UA, timeout=60).content, tries=3, base_sleep=5, what=url)
+        url, content = retry(download_shiller, tries=2, base_sleep=5, what="shiller")
         df = parse_shiller(content)
         write_csv(df, path, index=False)
         log_status("regime", "shiller ie_data", True, len(df), f"last {df['date'].max().date()} from {url[:80]}")
