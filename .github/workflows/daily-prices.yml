@@ -17,6 +17,9 @@ on:
 permissions:
   contents: write
 
+env:
+  PYTHONUNBUFFERED: "1"
+
 concurrency:
   group: data-commit
   cancel-in-progress: false
