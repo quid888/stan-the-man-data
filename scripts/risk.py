@@ -95,7 +95,7 @@ def main():
     usdchf = fx.get("USD")
     chf = {}
     for row in wl.itertuples():
-        if row.role == "fx":
+        if row.role in ("fx", "regime"):   # regime indicators (VIX, bond and style ETFs) are read by regime.py
             continue
         s = in_chf(row, fx)
         if s is not None and len(s) > 10:

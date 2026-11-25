@@ -23,3 +23,13 @@ GC=F,Gold (COMEX futures),commodity,USD,unit,gold,per troy ounce
 CHF=X,USD/CHF,fx,CHF,unit,fx,CHF per USD
 EURCHF=X,EUR/CHF,fx,CHF,unit,fx,CHF per EUR
 GBPCHF=X,GBP/CHF,fx,CHF,unit,fx,CHF per GBP
+^VIX,CBOE Volatility Index,regime,PTS,unit,stress,expected 30-day S&P 500 volatility
+^MOVE,ICE BofA MOVE Index,regime,PTS,unit,stress,expected Treasury volatility
+HYG,iShares iBoxx High Yield Corporate Bond ETF,regime,USD,unit,credit,high-yield bonds (credit spread proxy with IEF)
+IEF,iShares 7-10 Year Treasury Bond ETF,regime,USD,unit,credit,Treasury bonds
+SPY,SPDR S&P 500 ETF,regime,USD,unit,breadth,cap-weighted S&P 500 with dividends
+RSP,Invesco S&P 500 Equal Weight ETF,regime,USD,unit,breadth,equal-weighted S&P 500
+IWM,iShares Russell 2000 ETF,regime,USD,unit,breadth,US small caps
+IWD,iShares Russell 1000 Value ETF,regime,USD,unit,style,US large value
+IWF,iShares Russell 1000 Growth ETF,regime,USD,unit,style,US large growth
+HG=F,Copper (COMEX futures),regime,USD,unit,cycle,USD per pound

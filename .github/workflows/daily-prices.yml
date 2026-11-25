@@ -1,6 +1,7 @@
 name: daily-prices
 
-# Prices for every ticker in config/watchlist.csv, then the risk numbers in data/derived.
+# Prices for every ticker in config/watchlist.csv, then the risk numbers, the market regime and the
+# Munger and Burry scores in data/derived.
 # Runs on weekdays at 22:17 UTC (after the US close), on demand, and when the code changes.
 on:
   schedule:
@@ -42,6 +43,14 @@ jobs:
         continue-on-error: true
       - name: Risk numbers
         run: python scripts/risk.py
+        timeout-minutes: 5
+        continue-on-error: true
+      - name: Market regime
+        run: python scripts/regime.py
+        timeout-minutes: 5
+        continue-on-error: true
+      - name: Munger and Burry scores
+        run: python scripts/scores.py
         timeout-minutes: 5
         continue-on-error: true
       - name: Commit data
