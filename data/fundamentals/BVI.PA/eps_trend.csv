@@ -1,5 +1,5 @@
 period,run_utc,current,7daysAgo,30daysAgo,60daysAgo,90daysAgo,currency,methodology
-0q,2026-11-25 15:06,,,,,,EUR,normalized
-+1q,2026-11-25 15:06,,,,,,EUR,normalized
-0y,2026-11-25 15:06,1.49934,1.52924,1.54427,1.54255,1.54089,EUR,normalized
-+1y,2026-11-25 15:06,1.62329,1.64877,1.63062,1.62888,1.65533,EUR,normalized
+0q,2026-11-28 06:16,,,,,,EUR,normalized
++1q,2026-11-28 06:16,,,,,,EUR,normalized
+0y,2026-11-28 06:16,1.49605,1.49934,1.52001,1.54469,1.54278,EUR,normalized
++1y,2026-11-28 06:16,1.61907,1.62329,1.64306,1.63204,1.62962,EUR,normalized

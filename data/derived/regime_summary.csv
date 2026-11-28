@@ -1,2 +1,2 @@
 run_utc,valuation_state,cape_percentile,excess_cape_yield,expected_us_real_10y,expected_band_low,expected_band_high,recession_prob_12m,fragility,fragility_state,frag_recession,frag_volatility,frag_credit,frag_trend,frag_concentration,regime,action,required_margin_of_safety,hurdle_real,hurdle_nominal_chf,required_return_floor,concentration_premium,ch_inflation
-2026-11-27 23:12,expensive,98.3,1.13,2.92,-2.58,4.35,16.2,46.0,medium,15.4,61.3,58.1,66.7,28.6,Late cycle,Lower half of the equity band; new buys only with a wide margin of safety,30,5.92,6.92,7.0,3.0,1.0
+2026-11-28 06:18,expensive,98.3,1.13,2.92,-2.58,4.35,16.5,46.2,medium,16.2,61.3,58.1,66.7,28.6,Late cycle,Lower half of the equity band; new buys only with a wide margin of safety,30,5.92,6.92,7.0,3.0,1.0
